@@ -18,10 +18,18 @@ class SlackApp:
 
         self.sc = SlackClient(token=self.token)
 
+    def join_all_channels(self):
+        """Join all channels supplied to object
+
+       :return: Returns list of the joined channels
+       :rtype: list
+        """
         [
             self.sc.api_call("conversations.join", channel=self.get_channel_id(chan))
-            for chan in channels
+            for chan in self.channels
         ]
+
+        return self.channels
 
     def get_channel_id(self, channel_name: str):
         """Resolve channel names to IDs used by the API
